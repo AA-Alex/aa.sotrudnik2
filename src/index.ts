@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express'
 import { UserM } from './Model/User/UserM';
-
+import { UserV } from './Model/User/UserV';
 
 const app = express();
 const jsonParser = bodyParser.json()
@@ -44,10 +44,14 @@ app.get('/user/', async (req, res) => {
 
 // Создать пользователя с логином и паролем
 app.post('/auth/create-new-user', jsonParser, async (req, res) => {
+    const userV = new UserV();
 
+    // Валидация
     const reqData: { login: string, pswd: string } = req.body;
-    if (typeof reqData?.login !== 'string' || typeof reqData?.pswd !== 'string') {
-        throw console.log('Не верный формат данных для регистрации');
+    const checkValid = userV.checkRegistartionData(reqData);
+    if (checkValid) {
+        res.send(checkValid);
+        throw console.log(checkValid);
     }
 
     const userM: UserM = new UserM();
@@ -62,6 +66,34 @@ app.post('/auth/create-new-user', jsonParser, async (req, res) => {
     res.send('Пользователь уcпешно создан, но это не точно =)');
 });
 
+// Авторизация
+app.post('/auth/login', jsonParser, async (req, res) => {
+    const userV = new UserV();
+
+    // Валидация
+    const reqData: { login: string, pswd: string } = req.body;
+    const checkValid = userV.checkRegistartionData(reqData);
+    if (checkValid) {
+        res.send(checkValid);
+        throw console.log(checkValid);
+    }
+
+    const userM: UserM = new UserM();
+    const sToken = await userM.tryLogIn(reqData);
+
+    if (!sToken) {
+        res.send('Не корректный логин или пароль');
+        throw console.log('Не корректный логин или пароль');
+    }
+
+    console.log('Авторизация прошла успешно')
+    res.send(`
+    Авторизация прошла успешно
+    user_token = ${sToken}
+    `
+    );
+
+});
 
 
 

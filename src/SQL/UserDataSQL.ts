@@ -9,6 +9,26 @@ export class UserDataSQL extends MamaSQL {
     /////////////
 
     /**
+     * получить данные одного пользователя
+     */
+    public async getByUserId(idUser: number): Promise<UserDataI> {
+
+        const sql = `
+                    SELECT * FROM user_data 
+                    WHERE user_id = ${idUser} 
+                    LIMIT 1;
+                `
+        let resp: UserDataI[] = [];
+        try {
+            resp = await mainReq(sql);
+        } catch (e) {
+
+            console.log(e, 'UserSQL.getByLogin');
+        }
+
+        return resp[0];
+    }
+    /**
      * Получить всех ползователей
      */
 
