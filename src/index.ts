@@ -1,10 +1,12 @@
 import express from 'express'
-import { UserM } from './Model/UserM/UserM';
+import { UserM } from './Model/User/UserM';
+
 
 const app = express();
+
 const iPort = 5000;
 
-const start = () => {
+const start = async () => {
 
     try {
 
@@ -16,18 +18,29 @@ const start = () => {
 
 }
 
-let aaa: any = null;
-async function fa() {
+app.get('/', async (req, res) => {
+    res.send('КУ-КУ ЁПТА!')
+});
+
+app.get('/user/', async (req, res) => {
+
     const userM: UserM = new UserM();
+    const listUser = await userM.listAllUser()
 
-    aaa = await userM.listAllUser()
-}
+    const response: string[] = [];
 
+    for (let i = 0; i < listUser.length; i++) {
+        const element = listUser[i];
+        response.push(JSON.stringify(element))
+
+    }
+
+    res.send(response.join(', '));
+});
 
 
 start();
 
-fa();
 
 
 

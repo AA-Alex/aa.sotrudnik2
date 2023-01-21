@@ -7,7 +7,16 @@ export class UserM {
     /**
      * Получить все пользователей
      */
-    public async listAllUser(): Promise<any[]> {
+    public async listAllUser(): Promise<{
+        id: number,
+        name: string,
+        soname: string,
+        otchestvo: string,
+        access_lvl: number,
+        email: string, tel:
+        string
+    }[]
+    > {
 
         const listUser = await this.userSQL.listAll();
 

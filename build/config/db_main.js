@@ -7,7 +7,7 @@ exports.mainReq = exports.sqlConf = void 0;
 const promise_1 = __importDefault(require("mysql2/promise"));
 exports.sqlConf = ({
     host: '0.0.0.0',
-    user: 'root',
+    user: 'admin_user',
     password: '123',
     database: 'aa_table'
 });
