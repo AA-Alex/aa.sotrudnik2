@@ -1,7 +1,0 @@
-### Исключаем NodeJS module
-node_modules/
-
-.idea/
-.vscode/
-build/
-npm-debug.log
