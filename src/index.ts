@@ -1,8 +1,10 @@
+import bodyParser from 'body-parser';
 import express from 'express'
 import { UserM } from './Model/User/UserM';
 
 
 const app = express();
+const jsonParser = bodyParser.json()
 
 const iPort = 5000;
 
@@ -36,6 +38,27 @@ app.get('/user/', async (req, res) => {
     }
 
     res.send(response.join(', '));
+});
+
+app.post('/auth/create-new-user', jsonParser, async (req, res) => {
+
+    const reqData: { login: string, pswd: string } = req.body;
+    if (!reqData?.login || !reqData?.pswd) {
+
+        throw console.log('Не верный формат данных для регистрации');
+
+    }
+
+    const userM: UserM = new UserM();
+    const isCreated = await userM.createNewUser(reqData);
+
+    if (!isCreated) {
+        res.send('Пользователь с таким логином уже существует!');
+        throw console.log('Пользователь с таким логином уже существует');
+
+    }
+
+    res.send('БДЫЩ!');
 });
 
 
