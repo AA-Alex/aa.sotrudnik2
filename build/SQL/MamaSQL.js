@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class MamaSQL {
     makeInsert(data) {
-        console.log('data :>> ', data);
         const rows = Object.keys(data);
         const values = [];
         for (let i = 0; i < Object.values(data).length; i++) {

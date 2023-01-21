@@ -27,7 +27,7 @@ export class UserDataSQL extends MamaSQL {
             `;
         const resp = await mainReq(sql);
 
-        return resp;
+        return resp?.insertId || 0;
     }
 
     /////////////

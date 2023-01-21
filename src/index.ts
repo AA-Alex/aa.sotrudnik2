@@ -8,22 +8,24 @@ const jsonParser = bodyParser.json()
 
 const iPort = 5000;
 
+/**
+ * Запускатор сервера
+ */
 const start = async () => {
-
     try {
-
         app.listen(iPort, () => console.log(`все работаdет, порт: ${iPort}`))
     } catch (e) {
-
         console.log('все сломалось :>> ', e);
     }
-
 }
+start();
 
+// главная страница
 app.get('/', async (req, res) => {
     res.send('КУ-КУ ЁПТА!')
 });
 
+// получить всех юзеров (тестовое)
 app.get('/user/', async (req, res) => {
 
     const userM: UserM = new UserM();
@@ -40,13 +42,12 @@ app.get('/user/', async (req, res) => {
     res.send(response.join(', '));
 });
 
+// Создать пользователя с логином и паролем
 app.post('/auth/create-new-user', jsonParser, async (req, res) => {
 
     const reqData: { login: string, pswd: string } = req.body;
-    if (!reqData?.login || !reqData?.pswd) {
-
+    if (typeof reqData?.login !== 'string' || typeof reqData?.pswd !== 'string') {
         throw console.log('Не верный формат данных для регистрации');
-
     }
 
     const userM: UserM = new UserM();
@@ -55,14 +56,14 @@ app.post('/auth/create-new-user', jsonParser, async (req, res) => {
     if (!isCreated) {
         res.send('Пользователь с таким логином уже существует!');
         throw console.log('Пользователь с таким логином уже существует');
-
     }
 
-    res.send('БДЫЩ!');
+    console.log('Пользователь уcпешно создан, но это не точно =)')
+    res.send('Пользователь уcпешно создан, но это не точно =)');
 });
 
 
-start();
+
 
 
 

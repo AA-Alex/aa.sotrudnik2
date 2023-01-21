@@ -1,8 +1,10 @@
 export default class MamaSQL {
 
+    /**
+     *  Собрать строку для инсерта
+     */
     public makeInsert(data: any): { rows: string, values: string } {
 
-        console.log('data :>> ', data);
         const rows: string[] = Object.keys(data);
         const values: string[] = []
 
@@ -15,7 +17,6 @@ export default class MamaSQL {
                 values.push(`${element}`)
 
             }
-
         }
 
         const sRows = rows.join(', ').toLocaleLowerCase();

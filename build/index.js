@@ -17,6 +17,7 @@ const start = async () => {
         console.log('все сломалось :>> ', e);
     }
 };
+start();
 app.get('/', async (req, res) => {
     res.send('КУ-КУ ЁПТА!');
 });
@@ -32,7 +33,7 @@ app.get('/user/', async (req, res) => {
 });
 app.post('/auth/create-new-user', jsonParser, async (req, res) => {
     const reqData = req.body;
-    if (!(reqData === null || reqData === void 0 ? void 0 : reqData.login) || !(reqData === null || reqData === void 0 ? void 0 : reqData.pswd)) {
+    if (typeof (reqData === null || reqData === void 0 ? void 0 : reqData.login) !== 'string' || typeof (reqData === null || reqData === void 0 ? void 0 : reqData.pswd) !== 'string') {
         throw console.log('Не верный формат данных для регистрации');
     }
     const userM = new UserM_1.UserM();
@@ -41,7 +42,7 @@ app.post('/auth/create-new-user', jsonParser, async (req, res) => {
         res.send('Пользователь с таким логином уже существует!');
         throw console.log('Пользователь с таким логином уже существует');
     }
-    res.send('БДЫЩ!');
+    console.log('Пользователь уcпешно создан, но это не точно =)');
+    res.send('Пользователь уcпешно создан, но это не точно =)');
 });
-start();
 //# sourceMappingURL=index.js.map

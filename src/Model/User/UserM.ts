@@ -1,7 +1,7 @@
 import { UserSQL } from "../../SQL/UserSQL";
 import { UserDataSQL } from "../../SQL/UserDataSQL";
 
-import { UserI } from "./UserE";
+import { AccessT, UserI } from "./UserE";
 
 export class UserM {
 
@@ -28,14 +28,12 @@ export class UserM {
 
         if (!listUser?.length) {
 
-            const idNewUser = await this.userSQL.add({ login: data.login })
+            const idNewUser = await this.userSQL.add({ login: data.login, access_lvl: AccessT.base_user })
 
             if (idNewUser) {
-
-                await this.userDataSQL.add({ user_id: idNewUser, pswd: data.pswd })
-                bCreated = true;
+                const idNewUserData = await this.userDataSQL.add({ user_id: idNewUser, pswd: data.pswd })
+                bCreated = idNewUserData > 0;
             }
-
         }
 
         return bCreated;

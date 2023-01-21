@@ -13,7 +13,7 @@ class UserDataSQL extends MamaSQL_1.default {
                 REPLACE INTO user_data (${rowValues.rows}) VALUES(${rowValues.values});
             `;
         const resp = await (0, db_main_1.mainReq)(sql);
-        return resp;
+        return (resp === null || resp === void 0 ? void 0 : resp.insertId) || 0;
     }
 }
 exports.UserDataSQL = UserDataSQL;
