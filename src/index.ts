@@ -29,21 +29,13 @@ app.get('/', async (req, res) => {
 // получить всех юзеров (тестовое)
 app.get('/user/', async (req, res) => {
 
-    const aaa = await AuthSysMiddleware(req, res)
-    console.log('aaa :>> ', aaa);
-
-    const userM: UserM = new UserM();
-    const listUser = await userM.listAllUser()
-
-    const response: string[] = [];
-
-    for (let i = 0; i < listUser.length; i++) {
-        const element = listUser[i];
-        response.push(JSON.stringify(element))
-
+    const accessCheck = await AuthSysMiddleware(req, 10)
+    if (!accessCheck?.isOk) {
+        res.send('Ошибка доступа');
+        throw console.log('Ошибка доступа');
     }
 
-    res.send(response.join(', '));
+    res.send('КУ-КУ ЁПТА!')
 });
 
 // Создать пользователя с логином и паролем
@@ -90,13 +82,7 @@ app.post('/auth/login', jsonParser, async (req, res) => {
         throw console.log('Не корректный логин или пароль');
     }
 
-    console.log('Авторизация прошла успешно')
-    res.send(`
-    Авторизация прошла успешно
-    user_token = ${sToken}
-    `
-    );
-
+    res.send('Авторизация прошла успешно');
 });
 
 

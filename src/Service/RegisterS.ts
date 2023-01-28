@@ -7,6 +7,7 @@ export class RegisterS {
 
         const payload = { id, lvl }
 
+        console.log('payload :>> ', payload);
         return jwt.sign(payload, secret, { expiresIn: '7d' });
     }
 }

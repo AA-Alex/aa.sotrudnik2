@@ -27,7 +27,7 @@ export class UserSQL extends MamaSQL {
     public async getByLogin(userName: string): Promise<UserI> {
 
         const sql = `
-                SELECT id FROM user 
+                SELECT * FROM user 
                 WHERE login = "${userName.toLocaleLowerCase()}"
                 LIMIT 1 ;
             `

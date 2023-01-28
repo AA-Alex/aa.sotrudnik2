@@ -3,30 +3,25 @@ import { secret } from './config/conf';
 
 
 
-export default async function AuthSysMiddleware(req: any, res: any) {
-    let out: any = null;
-
+export default async function AuthSysMiddleware(req: any, lvl: number): Promise<{ message: any, isOk: boolean }> {
+    let message = '';
+    let userData: { id: number, lvl: number } = null;
+    let isOk = false;
 
     try {
         const sToken = await req.headers?.apikey
-
-        console.log('sToken :>> ', sToken);
-
-        if (!sToken) {
-
-            out = res.status(403).json({ auth_error: ' Ошибка авторизации' })
-        } else {
-
-            req.user_data = jwt.verify(sToken, secret)
-        }
+        userData = <{ id: number, lvl: number }>jwt.verify(sToken, secret)
 
     } catch (e) {
 
-        out = res.status(403).json({ auth_error: ' Ошибка авторизации' }, e)
+        message = 'auth_error:  Ошибка авторизации' + String(e);
     }
 
-    console.log(' req.user_data :>> ', req.user_data);
-    return out;
+    if (userData?.lvl <= lvl) {
+        isOk = true
+    }
+
+    return { message, isOk };
 }
 
 
