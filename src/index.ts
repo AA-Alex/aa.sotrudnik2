@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import express from 'express'
+import AuthSysMiddleware from './authMiddleware';
 import { UserM } from './Model/User/UserM';
 import { UserV } from './Model/User/UserV';
 
@@ -27,6 +28,9 @@ app.get('/', async (req, res) => {
 
 // получить всех юзеров (тестовое)
 app.get('/user/', async (req, res) => {
+
+    const aaa = await AuthSysMiddleware(req, res)
+    console.log('aaa :>> ', aaa);
 
     const userM: UserM = new UserM();
     const listUser = await userM.listAllUser()

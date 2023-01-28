@@ -24,14 +24,16 @@ export class UserSQL extends MamaSQL {
     /**
      * Получить всех ползователей
      */
-    public async getByLogin(userName: string): Promise<UserI[]> {
+    public async getByLogin(userName: string): Promise<UserI> {
 
         const sql = `
-                SELECT id FROM user WHERE login = "${userName.toLocaleLowerCase()}";
+                SELECT id FROM user 
+                WHERE login = "${userName.toLocaleLowerCase()}"
+                LIMIT 1 ;
             `
-        let resp: UserI[] = [];
+        let resp: UserI = null;
         try {
-            resp = await mainReq(sql);
+            resp = (await mainReq(sql))[0];
         } catch (e) {
             console.log(e, 'UserSQL.getByLogin');
 

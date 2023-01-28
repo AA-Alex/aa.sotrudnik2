@@ -4,6 +4,7 @@ import * as bcrypt from 'bcryptjs';
 
 import { AccessT, UserI } from "./UserE";
 import { RegisterS } from "../../Service/RegisterS";
+import { UserDataI } from "./UserDataE";
 
 export class UserM {
 
@@ -26,11 +27,10 @@ export class UserM {
     public async createNewUser(data: { login: string, pswd: string }): Promise<boolean> {
         let bCreated = false;
 
-        const listUser = await this.userSQL.getByLogin(data.login);
+        const vUser = await this.userSQL.getByLogin(data.login.toLocaleLowerCase());
+        if (!vUser?.id) {
 
-        if (!listUser?.length) {
-
-            const idNewUser = await this.userSQL.add({ login: data.login, access_lvl: AccessT.base_user })
+            const idNewUser = await this.userSQL.add({ login: data.login.toLocaleLowerCase(), access_lvl: AccessT.base_user })
 
             if (idNewUser) {
                 const pswdHash = bcrypt.hashSync(data.pswd, 13);
@@ -48,23 +48,28 @@ export class UserM {
     public async tryLogIn(data: { login: string, pswd: string }): Promise<string> {
         let isCanLogin = false;
         let sToken = '';
+        let userData: UserDataI = null;
         const registerS = new RegisterS();
 
-        const listUser = await this.userSQL.getByLogin(data.login);
+        // Получить инфо пользователя
+        const userInfo = await this.userSQL.getByLogin(data.login);
 
-        const idUser = listUser[0]?.id || 0;
-
-
-        if (idUser) {
-            const userData = await this.userDataSQL.getByUserId(idUser)
-
+        if (userInfo?.id) {
+            // Получить рег данные пользователя
+            userData = await this.userDataSQL.getByUserId(userInfo.id);
+            // Если пароль совпадает
             if (userData?.pswd) {
-                isCanLogin = await bcrypt.compare(data.pswd, userData.pswd)
+                isCanLogin = await bcrypt.compare(data.pswd, userData.pswd);
             }
         }
 
-        if (isCanLogin) {
-            sToken = registerS.createNewToken(idUser, data.pswd)
+        if (isCanLogin && userData.token) {
+            sToken = userData.token;
+        } else if (isCanLogin) {
+
+            sToken = registerS.createNewToken(userInfo.id, userInfo.access_lvl);
+            await this.userDataSQL.updateToken(userInfo.id, { token: sToken });
+
         }
 
         return sToken;

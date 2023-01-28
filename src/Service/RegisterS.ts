@@ -3,10 +3,10 @@ import { secret } from '../config/conf';
 
 export class RegisterS {
 
-    public createNewToken = (id: number, pswd: string) => {
+    public createNewToken = (id: number, lvl: number) => {
 
-        const payload = { id, pswd }
+        const payload = { id, lvl }
 
-        return jwt.sign(payload, secret, { expiresIn: '48h' });
+        return jwt.sign(payload, secret, { expiresIn: '7d' });
     }
 }

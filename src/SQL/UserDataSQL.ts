@@ -54,6 +54,20 @@ export class UserDataSQL extends MamaSQL {
     // UPDATE
     /////////////
 
+    /**
+     * Обновить токен
+     */
+    public async updateToken(user_id: number, data: UserDataI): Promise<number> {
+
+        const sql = `
+                    UPDATE user_data SET token = '${data.token}'
+                    WHERE user_id = ${user_id};
+                `;
+        const resp = await mainReq(sql);
+
+        return resp?.insertId || 0;
+    }
+
     /////////////
     // DELETE
     /////////////
