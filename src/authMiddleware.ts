@@ -1,8 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import { secret } from './config/conf';
 
-
-
 export default async function AuthSysMiddleware(req: any, lvl: number): Promise<{ message: any, isOk: boolean }> {
     let message = '';
     let userData: { id: number, lvl: number } = null;
@@ -17,7 +15,7 @@ export default async function AuthSysMiddleware(req: any, lvl: number): Promise<
         message = 'auth_error:  Ошибка авторизации' + String(e);
     }
 
-    if (userData?.lvl <= lvl) {
+    if ((userData?.lvl <= lvl) || (lvl === -1)) {
         isOk = true
     }
 

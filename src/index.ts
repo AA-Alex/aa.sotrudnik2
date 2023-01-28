@@ -23,7 +23,8 @@ start();
 
 // главная страница
 app.get('/', async (req, res) => {
-    res.send('КУ-КУ ЁПТА!')
+
+    res.sendFile(__dirname + '/Frontend/main.html')
 });
 
 // получить всех юзеров (тестовое)
@@ -31,11 +32,11 @@ app.get('/user/', async (req, res) => {
 
     const accessCheck = await AuthSysMiddleware(req, 10)
     if (!accessCheck?.isOk) {
-        res.send('Ошибка доступа');
+        res.sendFile(__dirname + '/Frontend/main.html')
         throw console.log('Ошибка доступа');
     }
 
-    res.send('КУ-КУ ЁПТА!')
+    res.sendFile('Страница польозотвалей для зерегистрированных пользователей')
 });
 
 // Создать пользователя с логином и паролем
