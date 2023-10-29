@@ -1,6 +1,7 @@
 import { mainReq } from '../config/db_main';
 import { UserI } from '../Model/User/UserE';
 import MamaSQL from './MamaSQL';
+import { UserE } from './UserE';
 
 export class UserSQL extends MamaSQL {
 
@@ -24,11 +25,11 @@ export class UserSQL extends MamaSQL {
     /**
      * Получить всех ползователей
      */
-    public async getByLogin(userName: string): Promise<UserI> {
+    public async getByLogin(sUserName: string): Promise<UserI> {
 
         const sql = `
-                SELECT * FROM user 
-                WHERE login = "${userName.toLocaleLowerCase()}"
+                SELECT * FROM ${UserE.NAME} 
+                WHERE login = "${sUserName.toLocaleLowerCase()}"
                 LIMIT 1 ;
             `
         let resp: UserI = null;

@@ -8,11 +8,11 @@ export interface UserI {
 }
 
 export enum AccessT {
-    root = 0, // рут всемогущий
-    admin = 1, // админ
-    boss = 2, // начальних цеха
+    root = 100, // рут всемогущий
+    admin = 99, // админ
+    boss = 50, // начальних цеха
     base_user = 10 // просто пользователь (зарегистрированный)
 }
 export class UserE {
-    // а нужно ли?
+    public static NAME = 'user';
 }

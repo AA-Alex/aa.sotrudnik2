@@ -7,6 +7,6 @@ export interface UserDataI {
     token?: string,
 }
 
-export class UserE {
-    // а нужно ли?
+export class UserDataE {
+    public static NAME = 'user_data';
 }

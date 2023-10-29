@@ -1,10 +1,10 @@
-import { UserSQL } from "../../SQL/UserSQL";
-import { UserDataSQL } from "../../SQL/UserDataSQL";
+import { UserSQL } from "../../SQL/User/UserSQL";
+import { UserDataSQL } from "../../SQL/UserData/UserDataSQL";
 import * as bcrypt from 'bcryptjs';
 
-import { AccessT, UserI } from "./UserE";
+import { AccessT, UserI } from "../../SQL/User/UserE";
 import { RegisterS } from "../../Service/RegisterS";
-import { UserDataI } from "./UserDataE";
+import { UserDataI } from "../../SQL/UserData/UserDataE";
 
 export class UserM {
 
