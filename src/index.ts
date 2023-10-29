@@ -24,7 +24,7 @@ start();
 // главная страница
 app.get('/', async (req, res) => {
 
-    res.sendFile(__dirname + '/Frontend/main.html')
+    res.sendFile(__dirname + '/FrontPage/main.html')
 });
 
 // получить всех юзеров (тестовое)

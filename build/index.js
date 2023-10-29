@@ -21,7 +21,7 @@ const start = async () => {
 };
 start();
 app.get('/', async (req, res) => {
-    res.sendFile(__dirname + '/Frontend/main.html');
+    res.sendFile(__dirname + '/FrontPage/main.html');
 });
 app.get('/user/', async (req, res) => {
     const accessCheck = await (0, authMiddleware_1.default)(req, 10);
