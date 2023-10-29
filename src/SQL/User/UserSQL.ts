@@ -1,7 +1,6 @@
-import { mainReq } from '../config/db_main';
-import { UserI } from '../Model/User/UserE';
-import MamaSQL from './MamaSQL';
-import { UserE } from './UserE';
+import { mainReq } from '../../config/db_main';
+import MamaSQL from '../MamaSQL';
+import { UserE, UserI } from './UserE';
 
 export class UserSQL extends MamaSQL {
 

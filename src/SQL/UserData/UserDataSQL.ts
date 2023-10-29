@@ -1,6 +1,6 @@
-import { mainReq } from '../config/db_main';
-import { UserDataI } from '../Model/User/UserDataE';
-import MamaSQL from './MamaSQL';
+import { mainReq } from "../../config/db_main";
+import MamaSQL from "../MamaSQL";
+import { UserDataI } from "./UserDataE";
 
 export class UserDataSQL extends MamaSQL {
 
@@ -43,7 +43,7 @@ export class UserDataSQL extends MamaSQL {
         const rowValues = this.makeInsert(data);
 
         const sql = `
-                REPLACE INTO user_data (${rowValues.rows}) VALUES(${rowValues.values});
+                INSERT INTO user_data (${rowValues.rows}) VALUES(${rowValues.values});
             `;
         const resp = await mainReq(sql);
 

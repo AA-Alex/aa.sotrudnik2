@@ -3,9 +3,9 @@ import mysql2 from 'mysql2/promise';
 // настройки подключения к бд
 export const sqlConf = ({
     host: '0.0.0.0',
-    user: 'admin_user',
-    password: '123',
-    database: 'aa_table'
+    user: 'admin',
+    password: 'password',
+    database: 'aa_db'
 });
 
 /**

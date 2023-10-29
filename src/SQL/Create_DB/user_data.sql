@@ -5,7 +5,7 @@ CREATE TABLE
         `pswd` text NOT NULL,
         `email` text DEFAULT NULL,
         `tel` text DEFAULT NULL,
-        `token` text NOT NULL,
+        `token` text DEFAULT NULL,
         PRIMARY KEY (`id`),
         KEY `user_data_user_id_IDX` (`user_id`) USING BTREE,
         KEY `user_data_pswd_IDX` (`pswd`(768)) USING BTREE,

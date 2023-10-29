@@ -3,7 +3,7 @@ CREATE TABLE
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `login` text NOT NULL,
         `name` text NOT NULL,
-        `soname` text NOT NULL,
+        `soname` text,
         `otchestvo` text DEFAULT NULL,
         `access_lvl` int(11) DEFAULT NULL,
         PRIMARY KEY (`id`),

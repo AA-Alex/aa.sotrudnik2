@@ -15,7 +15,7 @@ export default async function AuthSysMiddleware(req: any, lvl: number): Promise<
         message = 'auth_error:  Ошибка авторизации' + String(e);
     }
 
-    if ((userData?.lvl <= lvl) || (lvl === -1)) {
+    if ((userData?.lvl >= lvl) || (lvl === 100)) {
         isOk = true
     }
 
