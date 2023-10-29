@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch-back": "npx tsc -w",
-    "watch-front": "nodemon ./build/index.js",
+    "watch-server": "nodemon ./build/index.js",
     "watch1": "tsc && nodemon index.ts",
     "watch2": "./node_modules/.bin/tsc-watch --onSuccess \"node ./build/indedx.js\""
   },
