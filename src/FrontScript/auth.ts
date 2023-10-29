@@ -15,3 +15,9 @@ import { mainUrl } from "../config/conf";
 
 //     return response.json();
 // }
+
+
+function test() {
+    alert(" ТЫНЦ!");
+}
+
