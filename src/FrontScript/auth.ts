@@ -17,7 +17,7 @@ import { mainUrl } from "../config/conf";
 // }
 
 
-function test() {
+function myScript() {
     alert(" ТЫНЦ!");
 }
 
